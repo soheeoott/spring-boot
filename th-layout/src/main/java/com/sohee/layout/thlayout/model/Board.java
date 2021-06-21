@@ -13,7 +13,7 @@ public class Board {
     // 데이터베이스에서 정의한 필드들을 정의
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardId;
+    private Long boardid;
     private String title;
     private String content;
 }
