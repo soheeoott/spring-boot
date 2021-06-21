@@ -12,7 +12,7 @@
   <title th:text="${title}"></title>
 </head>
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" th:fragment="menu">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" th:fragment="menu(menu)">
       <a class="navbar-brand" href="#">Spring Boot Tutorial</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -20,11 +20,12 @@
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">홈<span class="sr-only">(current)</span></a>
+          <li class="nav-item" th:classappend="${menu} == 'home' ? 'active'">
+            <!-- th:href 컨트롤러에서 지정한 경로 -->
+            <a class="nav-link" href="#" th:href="@{/}">홈<span class="sr-only" th:if="${menu} == 'home'">(current)</span></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">게시판</a>
+          <li class="nav-item" th:classappend="${menu} == 'board' ? 'active'">
+            <a class="nav-link" href="#" th:href="@{/board/list}">게시판<span class="sr-only" th:if="${menu} == 'board'">(current)</span></a>
           </li>
         </ul>
       </div>
