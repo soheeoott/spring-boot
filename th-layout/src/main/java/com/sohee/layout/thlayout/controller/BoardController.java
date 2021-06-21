@@ -19,8 +19,8 @@ public class BoardController {
 
     @GetMapping("/list")
     public String list(Model model) {
-        List<Board> board = boardRepository.findAll(); // 데이터 전부 가져오기
-        model.addAttribute("board", board); // 담은 데이터는 thymeleaf 에서 사용
+        List<Board> boards = boardRepository.findAll(); // 데이터 전부 가져오기
+        model.addAttribute("boards", boards); // 담은 데이터는 thymeleaf 에서 사용
         return "board/list";
     }
 }
