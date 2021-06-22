@@ -3,6 +3,7 @@ package com.sohee.layout.thlayout.controller;
 import com.sohee.layout.thlayout.model.Board;
 import com.sohee.layout.thlayout.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +16,12 @@ class BoardApiController {
     private BoardRepository repository;
 
     @GetMapping("/board")
-    List<Board> all() {
-        return repository.findAll();
+    List<Board> all(@RequestParam(required = false) String title) { // 기본값은 true
+        if(ObjectUtils.isEmpty(title)){
+            return repository.findAll();
+        } else {
+            return repository.findByTitle(title);
+        }
     }
 
     @PostMapping("/board")
