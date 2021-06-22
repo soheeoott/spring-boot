@@ -2,10 +2,12 @@ package com.sohee.layout.thlayout.validator;
 
 import antlr.StringUtils;
 import com.sohee.layout.thlayout.model.Board;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+@Component
 public class BoardValidator implements Validator {
 
     @Override
