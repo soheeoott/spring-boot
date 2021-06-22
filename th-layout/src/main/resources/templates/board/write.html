@@ -18,6 +18,7 @@
         <div class="container">
             <h2>글작성</h2>
             <form action="#" th:action="@{/board/write}" th:object="${board}" method="post"> <!-- th:object : @GetMapping 에서 전달받은 값 -->
+                <input type="hidden" th:field="*{boardid}">
                 <div class="form-group">
                     <label for="title">제목</label>
                     <input type="text" class="form-control" id="title" th:field="*{title}"> <!-- th:object(board) 의 속성 -->
