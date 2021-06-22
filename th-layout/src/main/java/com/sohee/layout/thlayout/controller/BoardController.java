@@ -5,10 +5,7 @@ import com.sohee.layout.thlayout.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,8 +24,13 @@ public class BoardController {
     }
 
     @GetMapping("/write")
-    public String write(Model model) {
-        model.addAttribute("board", new Board());
+    public String write(Model model, @RequestParam(required = false) Long boardid) {
+        if(boardid == null){
+            model.addAttribute("board", new Board());
+        } else {
+            Board board = boardRepository.findById(boardid).orElse(null);
+            model.addAttribute("board", board);
+        }
         return "board/write";
     }
 
