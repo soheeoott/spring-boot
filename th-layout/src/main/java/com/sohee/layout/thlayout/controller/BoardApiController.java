@@ -16,11 +16,12 @@ class BoardApiController {
     private BoardRepository repository;
 
     @GetMapping("/board")
-    List<Board> all(@RequestParam(required = false) String title) { // 기본값은 true
-        if(ObjectUtils.isEmpty(title)){
-            return repository.findAll();
+    List<Board> all(@RequestParam(required = false, defaultValue = "") String title,
+                    @RequestParam(required = false, defaultValue = "") String content) { // 기본값은 true
+        if(ObjectUtils.isEmpty(title) && ObjectUtils.isEmpty(content)){ // 둘 다 빈값인 경우
+            return repository.findAll(); // 전체 조회
         } else {
-            return repository.findByTitle(title);
+            return repository.findByTitleOrContent(title, content); // 해당하는 문자열을 Or 조건으로 검색
         }
     }
 
