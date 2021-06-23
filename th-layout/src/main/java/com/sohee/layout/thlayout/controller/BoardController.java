@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,7 +29,10 @@ public class BoardController {
     @GetMapping("/list")
     public String list(Model model, Pageable pageable) {
         Page<Board> boards = boardRepository.findAll(pageable); // 데이터 전부 가져오기
-        // findAll(PageRequest.of(0, 20) = 하드 코딩
+        int startPage = Math.max(1, boards.getPageable().getPageNumber() - 4); // 현재 페이지에서 첫 번째 페이지를 계산, 최소값으로 1을 설정
+        int endPage = Math.min(boards.getTotalPages(), boards.getPageable().getPageNumber() + 4); // 현재 페이지에서 마지막 페이지를 계산, 최대값은 총 페이지의 개수
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
         model.addAttribute("boards", boards); // 담은 데이터는 thymeleaf 에서 사용
         return "board/list";
     }
