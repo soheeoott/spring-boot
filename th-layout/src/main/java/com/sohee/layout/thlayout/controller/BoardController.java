@@ -6,6 +6,7 @@ import com.sohee.layout.thlayout.validator.BoardValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,8 +26,9 @@ public class BoardController {
     private BoardValidator boardValidator; // 커스텀 검증 클래스 선언
 
     @GetMapping("/list")
-    public String list(Model model) {
-        Page<Board> boards = boardRepository.findAll(PageRequest.of(0, 20)); // 데이터 전부 가져오기
+    public String list(Model model, Pageable pageable) {
+        Page<Board> boards = boardRepository.findAll(pageable); // 데이터 전부 가져오기
+        // findAll(PageRequest.of(0, 20) = 하드 코딩
         model.addAttribute("boards", boards); // 담은 데이터는 thymeleaf 에서 사용
         return "board/list";
     }
