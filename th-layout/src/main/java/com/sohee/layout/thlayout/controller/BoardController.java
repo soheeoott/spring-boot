@@ -4,6 +4,8 @@ import com.sohee.layout.thlayout.model.Board;
 import com.sohee.layout.thlayout.repository.BoardRepository;
 import com.sohee.layout.thlayout.validator.BoardValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,7 +26,7 @@ public class BoardController {
 
     @GetMapping("/list")
     public String list(Model model) {
-        List<Board> boards = boardRepository.findAll(); // 데이터 전부 가져오기
+        Page<Board> boards = boardRepository.findAll(PageRequest.of(0, 20)); // 데이터 전부 가져오기
         model.addAttribute("boards", boards); // 담은 데이터는 thymeleaf 에서 사용
         return "board/list";
     }

@@ -34,7 +34,7 @@
 
         <div class="container">
             <h2>게시판</h2>
-            <div>총 건수 : <span th:text="${#lists.size(boards)}"></span>
+            <div>총 건수 : <span th:text="${boards.totalElements}"></span>
                 <table class="table">
                     <thead class="table-dark">
                         <tr>
