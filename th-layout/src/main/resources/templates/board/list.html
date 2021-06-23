@@ -38,7 +38,7 @@
                 <form class="form-inline d-flex justify-content-end" method="GET" th:action="@{/board/list}"> <!-- 검색폼 -->
                     <div class="form-group mx-sm-3 mb-2">
                         <label for="searchText" class="sr-only">검색</label>
-                        <input type="text" class="form-control" id="searchText" name="searchText">
+                        <input type="text" class="form-control" id="searchText" name="searchText" th:value="${param.searchText}">
                     </div>
                     <button type="submit" class="btn btn-dark mb-2">검색</button>
                 </form>
