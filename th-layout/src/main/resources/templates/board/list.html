@@ -55,7 +55,7 @@
                         <tr th:each="board : ${boards}"> <!-- 데이터를 담을 변수명 : 모델에 담아놓은 값 -->
                             <td th:text="${board.boardid}">Mark</td>
                             <td><a th:text="${board.title}" href="" th:href="@{/board/write(boardid=${board.boardid})}">Otto</a></td> <!-- 글번호 파라미터 -->
-                            <td>홍길동</td>
+                            <td th:text="${board.user.username}">홍길동</td>
                         </tr>
                     </tbody>
                 </table>
