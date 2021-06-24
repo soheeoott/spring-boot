@@ -2,19 +2,20 @@ package com.sohee.layout.thlayout.controller;
 
 import com.sohee.layout.thlayout.model.Board;
 import com.sohee.layout.thlayout.repository.BoardRepository;
+import com.sohee.layout.thlayout.service.BoardService;
 import com.sohee.layout.thlayout.validator.BoardValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/board")
@@ -22,6 +23,9 @@ public class BoardController {
 
     @Autowired
     private BoardRepository boardRepository; // 레파지토리로 테이블의 데이터를 가져옴
+
+    @Autowired
+    private BoardService boardService;
 
     @Autowired
     private BoardValidator boardValidator; // 커스텀 검증 클래스 선언
@@ -51,12 +55,14 @@ public class BoardController {
     }
 
     @PostMapping("/write")
-    public String writeSubmit(@Valid Board board, BindingResult bindingResult) {
+    public String writeSubmit(@Valid Board board, BindingResult bindingResult, Authentication authentication) {
         boardValidator.validate(board, bindingResult); // 첫 번째 파라미터 : 어떤 클래스를 체크할 것인지
         if(bindingResult.hasErrors()){
             return "board/write";
         }
-        boardRepository.save(board);
+        String username = authentication.getName(); // 사용자의 인증 정보를 가져옴
+//        boardRepository.save(board);
+        boardService.save(username, board);
         return "redirect:/board/list";
     }
 }
