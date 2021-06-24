@@ -24,4 +24,7 @@ public class User {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id")) // 조인 할 상대 테이블
     private List<Role> roles = new ArrayList<>(); // 조인, nullPointException 방지
+
+    @OneToMany(mappedBy = "user") // 사용자와 게시글의 관계, user 변수의 설정을 그대로 사용, 양방향 매핑 = 서로가 서로를 조회
+    private List<Board> boards = new ArrayList<>();
 }
