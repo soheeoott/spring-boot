@@ -1,5 +1,6 @@
 package com.sohee.layout.thlayout.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,5 +17,6 @@ public class Role {
     private String rolename;
 
     @ManyToMany(mappedBy = "roles") // User 클래스에 있는 조인 컬럼
+    @JsonIgnore
     private List<User> users;
 }
