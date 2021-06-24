@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head(title)">
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -29,11 +29,12 @@
           </li>
         </ul>
 
-        <a class="btn btn-secondary my-2 my-sm-0" th:href="@{/account/login}">Login</a>
+        <a class="btn btn-secondary my-2 my-sm-0" th:href="@{/account/login}"
+           sec:authorize="!isAuthenticated()">Login</a> <!-- 로그인을 하지 않은 사용자 -->
 
-        <form class="form-inline my-2 my-lg-0">
-          <span class="text-white">사용자</span> <!-- mx(=좌우 margin) -->
-          <span class="text-white mx-2">권한</span>
+        <form class="form-inline my-2 my-lg-0" sec:authorize="isAuthenticated()"> <!-- 로그인한 사용자 -->
+          <span class="text-white" sec:authentication="name">사용자</span> <!-- mx(=좌우 margin) -->
+          <span class="text-white mx-2" sec:authentication="principal.authorities">권한</span>
           <button class="btn btn-secondary my-2 my-sm-0" type="submit">Logout</button>
         </form>
       </div>
