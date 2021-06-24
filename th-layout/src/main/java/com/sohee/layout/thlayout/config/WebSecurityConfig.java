@@ -43,10 +43,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .usersByUsernameQuery("select username, password, enabled "
                 + "from user "
                 + "where username = ?") // Authentication 로그인 관한 처리
-            .authoritiesByUsernameQuery("select username, rolename "
+            .authoritiesByUsernameQuery("select u.username, r.rolename "
                 + "from user_role ur inner join user u on ur.user_id = u.userid "
                 + "inner join role r on ur.role_id = r.roleid "
-                + "where email = ?"); // Authroization 권한 설정, 조인 테이블
+                + "where u.username = ?"); // Authroization 권한 설정, 조인 테이블
     }
 
     @Bean
