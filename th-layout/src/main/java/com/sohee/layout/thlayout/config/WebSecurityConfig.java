@@ -40,12 +40,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication()
             .dataSource(dataSource)
             .passwordEncoder(passwordEncoder())
-            .usersByUsernameQuery("select email,password,enabled "
-                + "from bael_users "
-                + "where email = ?") // Authentication 로그인 관한 처리
-            .authoritiesByUsernameQuery("select email,authority "
-                + "from authorities "
-                + "where email = ?"); // Authroization 권한 설정
+            .usersByUsernameQuery("select username, password, enabled "
+                + "from user "
+                + "where username = ?") // Authentication 로그인 관한 처리
+            .authoritiesByUsernameQuery("select username, rolename "
+                + "from user_role ur inner join user u on ur.user_id = u.userid "
+                + "inner join role r on ur.role_id = r.roleid "
+                + "where email = ?"); // Authroization 권한 설정, 조인 테이블
     }
 
     @Bean
