@@ -22,6 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override // 오버라이드 : 상위에 이미 메소드가 구현되어 있음
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .csrf().disable()
             .authorizeRequests()
                 .antMatchers("/","/account/register","/css/**","/api/**").permitAll()
                 .anyRequest().authenticated()
