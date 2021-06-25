@@ -1,9 +1,9 @@
 package com.sohee.layout.thlayout.controller;
 
+import com.sohee.layout.thlayout.model.Board;
 import com.sohee.layout.thlayout.model.User;
 import com.sohee.layout.thlayout.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,8 +21,8 @@ class UserApiController {
     }
 
     @PostMapping("/user")
-    User user(@RequestBody User newuser) {
-        return repository.save(newuser);
+    User user(@RequestBody User newUser) {
+        return repository.save(newUser);
     }
 
     @GetMapping("/user/{userid}")
@@ -31,17 +31,21 @@ class UserApiController {
     }
 
     @PutMapping("/user/{userid}")
-    User replaceuser(@RequestBody User newuser, @PathVariable Long userid) {
+    User replaceuser(@RequestBody User newUser, @PathVariable Long userid) {
 
         return repository.findById(userid)
             .map(user -> {
 //                user.setTitle(newuser.getTitle());
 //                user.setContent(newuser.getContent());
+                user.setBoards(newUser.getBoards());
+                for(Board board : user.getBoards()){
+                    board.setUser(user);
+                }
                 return repository.save(user);
             })
             .orElseGet(() -> {
 //                newuser.setuserid(userid);
-                return repository.save(newuser);
+                return repository.save(newUser);
             });
     }
 
