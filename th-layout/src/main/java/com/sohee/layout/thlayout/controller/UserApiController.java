@@ -37,7 +37,9 @@ class UserApiController {
             .map(user -> {
 //                user.setTitle(newuser.getTitle());
 //                user.setContent(newuser.getContent());
-                user.setBoards(newUser.getBoards());
+//                user.setBoards(newUser.getBoards());
+                user.getBoards().clear();
+                user.getBoards().addAll(newUser.getBoards());
                 for(Board board : user.getBoards()){
                     board.setUser(user);
                 }
