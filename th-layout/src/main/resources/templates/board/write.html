@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/common :: head('게시판')">
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -36,7 +36,8 @@
                     </div>
                 </div>
                 <div class="text-right">
-                    <a type="button" class="btn btn-dark" th:href="@{/board/list}">취소</a>
+                    <a class="btn btn-dark" th:href="@{/board/list}">취소</a>
+                    <button type="button" class="btn btn-danger" sec:authorize="hasRole('ROLE_ADMIN')">삭제</button>
                     <button type="submit" class="btn btn-dark">확인</button>
                 </div>
             </form>
