@@ -37,21 +37,34 @@
                 </div>
                 <div class="text-right">
                     <a class="btn btn-dark" th:href="@{/board/list}">취소</a>
-                    <button type="button" class="btn btn-danger" sec:authorize="hasRole('ROLE_ADMIN')">삭제</button>
+                    <button type="button" class="btn btn-danger"
+                            sec:authorize="hasRole('ROLE_ADMIN')" th:onclick="|deleteBoard(*{boardid})|">삭제</button>
                     <button type="submit" class="btn btn-dark">확인</button>
                 </div>
             </form>
         </div>
 
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-                crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
                 integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
                 crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
                 integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
                 crossorigin="anonymous"></script>
+        <script>
+            <!-- /api/board/{boardid} -->
+            function deleteBoard(boardid){
+                $.ajax({
+                    url: '/api/board/' + boardid,
+                    type: 'DELETE',
+                    success: function(result) {
+                        console.log('삭제', result);
+                        alert('게시글이 삭제되었습니다.');
+                        window.location.href = '/board/list';
+                    }
+                });
+            }
+        </script>
     </body>
 </html>

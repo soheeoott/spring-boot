@@ -3,6 +3,7 @@ package com.sohee.layout.thlayout.controller;
 import com.sohee.layout.thlayout.model.Board;
 import com.sohee.layout.thlayout.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,6 +51,7 @@ class BoardApiController {
             });
     }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/board/{boardid}")
     void deleteBoard(@PathVariable Long boardid) {
         repository.deleteById(boardid);
